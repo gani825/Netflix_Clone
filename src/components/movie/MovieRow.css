@@ -1,0 +1,32 @@
+.movie-row {
+    padding: 20px;
+    color: white;
+}
+
+.movie-row h2 {
+    margin-bottom: 10px;
+}
+
+.movie-list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.movie-list::-webkit-scrollbar {
+    display: none;
+}
+
+.movie-card {
+    width: 160px;
+    height: 230px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform .3s;
+    object-fit: cover;
+}
+
+.movie-card:hover {
+    transform: scale(1.1);
+}

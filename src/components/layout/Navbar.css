@@ -1,0 +1,180 @@
+.navbar {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: 0 2vw;
+    color: #fff;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    transition: background 0.4s ease;
+
+    background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.9),
+            rgba(0,0,0,0.4),
+            transparent
+    );
+}
+
+.navbar.scrolled {
+    background: rgba(0,0,0,0.95);
+}
+
+/* LEFT */
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.logo-svg {
+    width: 180px;
+}
+
+.logo-text {
+    fill: #e50914;
+    font-size: 4rem;
+    font-weight: 900;
+}
+
+/* MENU */
+.menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.menu li {
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #e5e5e5;
+    white-space: nowrap;
+}
+
+.menu li:hover {
+    color: #b3b3b3;
+}
+
+/* RIGHT */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+}
+
+.bell-wrap {
+    position: relative;
+    margin-top: 5px;
+}
+
+
+/* 햄버거 */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* ================= MOBILE SIDE MENU ================= */
+
+.side-menu {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 260px;
+    height: calc(100vh - 80px);
+    background: #111;
+    color: white;
+    padding: 20px;
+    z-index: 200;
+
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.side-menu.show {
+    transform: translateX(0);
+}
+
+.side-menu.show {
+    transform: translateX(0);
+}
+.side-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.close-btn {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.side-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.side-menu li {
+    padding: 10px 0;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.side-menu li:hover {
+    color: #b3b3b3;
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 150;
+}
+
+/* ================= 반응형 ================= */
+
+@media (max-width: 1024px) {
+    .menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        height: 60px;
+        padding: 0 20px;
+    }
+
+    .side-menu {
+        top: 60px;
+        height: calc(100vh - 60px);
+    }
+}
