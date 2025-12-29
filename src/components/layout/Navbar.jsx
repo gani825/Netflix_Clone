@@ -4,16 +4,15 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useState, useEffect } from "react";
 
-const Navbar = () => {
+const Navbar = ({ setSearchText }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 80) setIsScrolled(true);
-            else setIsScrolled(false);
+            setIsScrolled(window.scrollY > 80);
         };
-
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
@@ -50,9 +49,40 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                {/* RIGHT */}
                 <div className="nav-right">
-                    <FiSearch size={26} />
+
+                    {/* 검색 버튼 */}
+                    {!searchOpen && (
+                        <FiSearch
+                            size={26}
+                            onClick={() => setSearchOpen(true)}
+                            style={{ cursor: "pointer" }}
+                        />
+                    )}
+
+                    {/* 검색창 */}
+                    {searchOpen && (
+                        <div className="search-box">
+                            <FiSearch className="search-icon" />
+
+                            <input
+                                autoFocus
+                                type="text"
+                                placeholder="제목, 사람, 장르"
+                                onChange={(e) => setSearchText(e.target.value)}
+                            />
+
+                            <HiX
+                                size={26}
+                                className="close-search"
+                                onClick={() => {
+                                    setSearchText("");
+                                    setSearchOpen(false);
+                                }}
+                            />
+                        </div>
+                    )}
+
                     <span>키즈</span>
 
                     <div className="bell-wrap">

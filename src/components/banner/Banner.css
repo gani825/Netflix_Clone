@@ -28,7 +28,7 @@
     left: 60px;
     color: #fff;
     width: 45%;
-    z-index: 2; /* overlay 위에 오게 */
+    z-index: 1; /* overlay 위에 오게 */
 }
 
 /* 제목 */

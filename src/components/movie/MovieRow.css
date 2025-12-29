@@ -1,16 +1,26 @@
+
 .movie-row {
+    margin-top: 40px;
     padding: 20px;
-    color: white;
+    color: #fff;
 }
 
 .movie-row h2 {
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
+/* 슬라이더 컨테이너 */
+.slider-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+/* 기본 리스트 스타일 */
 .movie-list {
     display: flex;
-    gap: 10px;
-    overflow-x: auto;
+    gap: 14px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
     scrollbar-width: none;
 }
 
@@ -18,15 +28,110 @@
     display: none;
 }
 
-.movie-card {
-    width: 160px;
-    height: 230px;
-    border-radius: 6px;
+/* 기본 카드 (가로 배너용) */
+.row-movie-card {
+    width: 400px;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    flex-shrink: 0;
+    object-fit: cover;
     cursor: pointer;
     transition: transform .3s;
+    position: relative;
+    z-index: 1;
+}
+
+.row-movie-card:hover {
+    transform: scale(1.08);
+}
+
+.movie-card-wrapper {
+    position: relative;
+}
+
+/* 제목 */
+.movie-title {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-shadow: 0 0 8px rgba(0,0,0,.8);
+    z-index: 1;
+}
+
+/* 슬라이드 버튼 */
+.slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,.65);
+    border: none;
+    color: #fff;
+    font-size: 3rem;
+    width: 60px;
+    height: 300px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.left { left: 0; z-index: 2;}
+
+.right { right: 0; }
+
+/* 페이지 인디케이터 */
+.page-indicator {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+
+}
+
+.page-indicator .bar {
+    width: 26px;
+    height: 5px;
+    background: #555;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.page-indicator .bar.active {
+    background: #fff;
+}
+
+/* TOP10 라인 전체 */
+.top10-list .movie-list {
+    gap: 34px;
+}
+
+/* 숫자 + 카드 묶음 */
+.rank-card {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+}
+
+/* 왼쪽 대형 숫자 */
+.rank-big {
+    font-size: 240px;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 8px rgba(255,255,255,0.32);
+    line-height: 0.99;
+    flex-shrink: 0;
+}
+
+/* TOP10 전용 포스터 */
+.top10-list {
+    height: 270px;
+    overflow: hidden;
+}
+.top10-list .row-movie-card {
+    width: 200px;
+    height: 260px;
     object-fit: cover;
 }
 
-.movie-card:hover {
-    transform: scale(1.1);
-}
+
