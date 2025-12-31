@@ -134,4 +134,27 @@
     object-fit: cover;
 }
 
+@media (max-width: 1024px) {
+    .row-movie-card {
+        width: 300px;
+    }
+    .modal-poster {
+        height: 35vh !important;
+    }
+    .movie-row h2 {
+        font-size: 1.3rem;
+    }
+    .movie-row {
+        padding: 10px;
+        margin-top: 20px;
+    }
+    .rank-big {
+        font-size: 190px;
+    }
+    .top10-list .row-movie-card {
+        width: 150px;
+        height: 250px;
+    }
+}
+
 
