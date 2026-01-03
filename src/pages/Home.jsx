@@ -1,15 +1,32 @@
-import {useState, useEffect} from "react";
-import Navbar from "../components/layout/Navbar";
+import { useState, useEffect } from "react";
+import Navbar from "../components/navbar/Navbar";
 import Banner from "../components/banner/Banner";
 import MovieRow from "../components/movie/MovieRow";
 import Modal from "../components/movie/Modal";
-import {BASE_URL, API_KEY} from "../api/api";
+import { BASE_URL, API_KEY } from "../api/api";
 
 const Home = () => {
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [searchText, setSearchText] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
+    //공통 정제 함수
+    const bannedCountries = ["IN", "ID", "RU", "TR"];
+
+    const cleanList = list =>
+        list.filter(item =>
+            item.poster_path &&
+            (item.title || item.name) &&
+            item.overview &&
+            (
+                item.original_language === "ko" ||
+                item.original_language === "en"
+            ) &&
+            !bannedCountries.includes(item.origin_country?.[0])
+        );
+
+
+    // 검색 기능
     useEffect(() => {
         if (!searchText) {
             setSearchResults([]);
@@ -21,15 +38,17 @@ const Home = () => {
                 `${BASE_URL}/search/multi?api_key=${API_KEY}&language=ko-KR&query=${searchText}`
             );
             const data = await res.json();
-            setSearchResults(data.results);
+
+            setSearchResults(cleanList(data.results || []));
         };
 
         fetchSearch();
     }, [searchText]);
 
+
     return (
-        <div style={{background: "#111", minHeight: "100vh"}}>
-            <Navbar setSearchText={setSearchText}/>
+        <div style={{ background: "#111", minHeight: "100vh" }}>
+            <Navbar setSearchText={setSearchText} />
 
             {/* 검색 결과 있을 때 */}
             {searchResults.length > 0 ? (
@@ -40,8 +59,7 @@ const Home = () => {
                 />
             ) : (
                 <>
-                    <Banner setSelectedMovie={setSelectedMovie}/>
-
+                    <Banner setSelectedMovie={setSelectedMovie} />
 
                     <MovieRow
                         title="오늘의 인기콘텐츠"
@@ -78,7 +96,7 @@ const Home = () => {
             )}
 
             {selectedMovie && (
-                <Modal movie={selectedMovie} onClose={() => setSelectedMovie(null)}/>
+                <Modal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />
             )}
         </div>
     );

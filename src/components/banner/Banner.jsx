@@ -2,20 +2,19 @@ import { useEffect, useState } from "react";
 import { API_KEY, BASE_URL, IMAGE_URL } from "../../api/api";
 import "./Banner.css";
 
-const Banner = ({ setSelectedMovie }) => {
+const Banner = ({ setSelectedMovie, fetchUrl, children }) => {
     const [movie, setMovie] = useState(null);
 
     const fetchBannerMovie = async () => {
         try {
             const res = await fetch(
-                `${BASE_URL}/trending/all/week?api_key=${API_KEY}&language=ko-KR`
+                `${BASE_URL}${fetchUrl || "/trending/all/week"}?api_key=${API_KEY}&language=ko-KR`
             );
+
             const data = await res.json();
 
-            // 배너 랜덤
             const randomIndex = Math.floor(Math.random() * data.results.length);
             setMovie(data.results[randomIndex]);
-
         } catch (error) {
             console.log("배너 불러오기 실패", error);
         }
@@ -29,11 +28,15 @@ const Banner = ({ setSelectedMovie }) => {
         <header
             className="banner"
             style={{
-                backgroundImage: `url(${IMAGE_URL}${movie?.backdrop_path})`
+                backgroundImage: `url(${IMAGE_URL}${movie?.backdrop_path})`,
             }}
         >
             {movie && (
                 <div className="banner-contents">
+
+                    {/* 🔥🔥 여기 추가 = Series에서 보낸 UI 표시 */}
+                    {children}
+
                     <h1>{movie.title || movie.name || movie.original_name}</h1>
 
                     <p>

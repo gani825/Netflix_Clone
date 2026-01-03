@@ -1,0 +1,59 @@
+.series-banner-header {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: -150px;
+    gap: 20px;
+}
+
+.series-banner-header h1 {
+    font-size: 2.7rem;
+}
+
+.genre-box {
+    position: relative;
+    display: inline-block;
+}
+
+.genre-btn {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #555;
+    color: #fff;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.genre-btn:hover {
+    background: #000;
+}
+
+.genre-btn span {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.genre-dropdown {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 520px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid #333;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    z-index: 10;
+}
+
+.genre-dropdown span {
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.genre-dropdown span:hover {
+    text-decoration: underline;
+}

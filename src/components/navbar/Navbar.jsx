@@ -3,11 +3,17 @@ import { FiSearch } from "react-icons/fi";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ setSearchText }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
+
+    // 🔥 내부에서도 검색 상태 관리 (부모가 안주면 fallback)
+    const [localSearchText, setLocalSearchText] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,12 +23,26 @@ const Navbar = ({ setSearchText }) => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // 🔥 안전하게 업데이트 (부모가 setter 안주면 내부 처리만)
+    const handleChange = (value) => {
+        setLocalSearchText(value);
+        if (setSearchText) {
+            setSearchText(value);
+        }
+    };
+
+    const handleClose = () => {
+        setLocalSearchText("");
+        if (setSearchText) {
+            setSearchText("");
+        }
+        setSearchOpen(false);
+    };
+
     return (
         <>
             <header className={`navbar ${isScrolled ? "scrolled" : ""}`}>
                 <div className="nav-left">
-
-                    {/* LOGO */}
                     <div className="logo">
                         <svg className="logo-svg" viewBox="0 0 300 120">
                             <defs>
@@ -37,10 +57,9 @@ const Navbar = ({ setSearchText }) => {
                         </svg>
                     </div>
 
-                    {/* PC MENU */}
                     <ul className="menu">
-                        <li>홈</li>
-                        <li>시리즈</li>
+                        <li onClick={() => navigate("/")}>홈</li>
+                        <li onClick={() => navigate("/series")}>시리즈</li>
                         <li>영화</li>
                         <li>게임</li>
                         <li>NEW! 요즘 대세 콘텐츠</li>
@@ -51,7 +70,6 @@ const Navbar = ({ setSearchText }) => {
 
                 <div className="nav-right">
 
-                    {/* 검색 버튼 */}
                     {!searchOpen && (
                         <FiSearch
                             size={26}
@@ -60,7 +78,6 @@ const Navbar = ({ setSearchText }) => {
                         />
                     )}
 
-                    {/* 검색창 */}
                     {searchOpen && (
                         <div className="search-box">
                             <FiSearch className="search-icon" />
@@ -69,16 +86,14 @@ const Navbar = ({ setSearchText }) => {
                                 autoFocus
                                 type="text"
                                 placeholder="제목, 사람, 장르"
-                                onChange={(e) => setSearchText(e.target.value)}
+                                value={localSearchText}
+                                onChange={(e) => handleChange(e.target.value)}
                             />
 
                             <HiX
                                 size={26}
                                 className="close-search"
-                                onClick={() => {
-                                    setSearchText("");
-                                    setSearchOpen(false);
-                                }}
+                                onClick={handleClose}
                             />
                         </div>
                     )}
@@ -89,7 +104,6 @@ const Navbar = ({ setSearchText }) => {
                         <IoNotificationsOutline size={28} />
                     </div>
 
-                    {/* 햄버거 버튼 */}
                     <button
                         className="hamburger"
                         onClick={() => setOpenMenu(true)}
@@ -99,7 +113,6 @@ const Navbar = ({ setSearchText }) => {
                 </div>
             </header>
 
-            {/* ---------- 모바일 메뉴 ---------- */}
             <div className={`side-menu ${openMenu ? "show" : ""}`}>
                 <div className="side-header">
                     <h2>메뉴</h2>
@@ -121,7 +134,6 @@ const Navbar = ({ setSearchText }) => {
                 </ul>
             </div>
 
-            {/* 오버레이 */}
             {openMenu && <div className="overlay" onClick={() => setOpenMenu(false)} />}
         </>
     );

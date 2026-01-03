@@ -1,12 +1,14 @@
-import Navbar from "./components/layout/Navbar";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import { API_KEY, BASE_URL, IMAGE_URL } from "./api/api";
+import Series from "./pages/Series";
 
 function App() {
     return (
         <>
-            <Navbar />
-            <Home />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/series" element={<Series />} />
+            </Routes>
         </>
     );
 }
